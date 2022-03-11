@@ -1,0 +1,37 @@
+[
+    {
+        "name": "id",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "favorites",
+        "type": "INTEGER",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "replies",
+        "type": "INTEGER",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "retweets",
+        "type": "INTEGER",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "quote_tweets",
+        "type": "INTEGER",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "video_views",
+        "type": "INTEGER",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "created_at",
+        "type": "DATETIME",
+        "mode": "NULLABLE"
+    }
+]

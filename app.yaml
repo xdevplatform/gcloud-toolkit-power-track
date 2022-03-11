@@ -1,0 +1,3 @@
+# [START gae_quickstart_yaml]
+runtime: nodejs14
+instance_class: F2
