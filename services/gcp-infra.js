@@ -8,23 +8,31 @@ const fs = require('fs');
 const pubSubClient = new PubSub();
 const subClient = new v1.SubscriberClient();
 
-async function provisionDB() {
+async function provisionDataSet() {
     return new Promise(function (resolve, reject) {
         createDataSet(config.gcp_infra.bq.dataSetId).then((dataSetResponse) => {
             console.log('dataSetResponse ', dataSetResponse);
-            createTables(config.gcp_infra.bq.dataSetId).then((tablesResponse) => {
-                console.log('tablesResponse ', tablesResponse);
-                resolve('Successfully provisioned DB');
-            }).catch(function (error) {
-                console.log('Error provisioning tables ', error);
-                reject({ "error": "Error Provisioning tables " });
-            });
+            resolve('Successfully provisioned dataset');
         }).catch(function (error) {
-            console.log('Error provisioning DB ', error);
-            reject({ "error": error.message });
+            console.log('Error provisioning dataset ', error);
+            resolve('Successfully provisioned -- already exists');
         })
     })
 }
+
+async function provisionTables() {
+    return new Promise(function (resolve, reject) {
+        createTables(config.gcp_infra.bq.dataSetId).then((tablesResponse) => {
+            console.log('tablesResponse ', tablesResponse);
+            resolve('Successfully provisioned tables');
+        }).catch(function (error) {
+            console.log('Error provisioning tables ', error);
+            reject({ "error": "Error Provisioning tables " });
+        });
+
+    })
+}
+
 
 async function setupMsgInfra() {
     return new Promise(function (resolve, reject) {
@@ -96,4 +104,4 @@ async function deleteDataSet(dataSetName) {
     console.log()
 }
 
-module.exports = { provisionDB, setupMsgInfra, cleanUp };
+module.exports = { provisionDataSet, provisionTables, setupMsgInfra, cleanUp };

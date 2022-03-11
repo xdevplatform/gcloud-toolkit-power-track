@@ -23,13 +23,17 @@ axiosRetry(axios, {
 });
 
 router.get("/", function (req, res) {
-  gcp_infra_svcs.provisionDB().then(function (status) {
+  gcp_infra_svcs.provisionDataSet().then(function (status) {
     if (status != null && status.includes('Successfully provisioned')) {
-        gcp_infra_svcs.setupMsgInfra().then(function (statusMsg)    {
-            if (statusMsg != null && statusMsg.includes(config.gcp_infra.topicName)) {
-              streamTweetsHttp();
-            }        
-        })
+      gcp_infra_svcs.provisionTables().then(function (status) {
+        if (status != null && status.includes('Successfully provisioned')) {
+          gcp_infra_svcs.setupMsgInfra().then(function (statusMsg)    {
+              if (statusMsg != null && statusMsg.includes(config.gcp_infra.topicName)) {
+                streamTweetsHttp();
+              }        
+          })
+        }
+      })
         res.send("Now streaming tweets with new GCP infra ..");
     }
 
