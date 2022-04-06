@@ -1,6 +1,6 @@
 # [START gae_quickstart_yaml]
 runtime: nodejs14
-service: trends
+# service: trends
 instance_class: F2
 automatic_scaling:
   min_instances: 1
