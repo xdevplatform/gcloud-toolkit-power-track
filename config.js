@@ -4,28 +4,28 @@ config.PORT = 4080;
 
 config.power_track_api  =   {
     'pt_stream_host' : 'gnip-stream.twitter.com',
-    'pt_stream_path' : '/stream/powertrack/accounts/Prasanna-Selvaraj/publishers/twitter/dev.json',
-    'gnip_username' : 'prasannas@twitter.com',
-    'gnip_password' : 'cap*ZMK_zbf-jxy1vqm',
+    'pt_stream_path' : '/stream/powertrack/accounts/{{account}}/publishers/twitter/{{stream}}.json',
+    'gnip_username' : '<<USERNAME>>',
+    'gnip_password' : '<<PASSWORD>>',
     'bearer_token' : 'Bearer <<YOUR_BEARER_TOKEN_HERE>>'
 }
 
 config.search_api  =   {
     'pt_stream_host' : 'gnip-api.twitter.com',
     'pt_stream_path' : '/search/fullarchive/accounts/Prasanna-Selvaraj/dev.json',
-    'gnip_username' : 'prasannas@twitter.com',
-    'gnip_password' : 'cap*ZMK_zbf-jxy1vqm'
+    'gnip_username' : '<<USERNAME>>',
+    'gnip_password' : '<<PASSWORD>>'
 }
 
 config.gcp_infra = {
-    "projectId" : "twttr-des-sa-demo-dev",
-    "topicName" : "ent-topic",
-    "subscriptionName" : "ent-topic-sub",
+    "projectId" : "<<PROJECT_ID>>",
+    "topicName" : "<<TOPIC_NAME>>",
+    "subscriptionName" : "<<SUBSCRIPTION_NAME>>",
     "messageCount" : 500,
     "streamReconnectCounter" : 3
 }
 config.gcp_infra.bq = {
-    "dataSetId": "entToolkit2"
+    "dataSetId": "<<DATASET_ID>>"
 }
 config.gcp_infra.bq.table = {
     "tweets": "tweets",
