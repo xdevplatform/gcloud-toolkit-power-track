@@ -27,7 +27,10 @@ async function provisionTables() {
             resolve('Successfully provisioned tables');
         }).catch(function (error) {
             console.log('Error provisioning tables ', error);
-            reject({ "error": "Error Provisioning tables " });
+            if( error && error.message.includes('Already Exists'))
+                resolve('Successfully provisioned tables -- already exists');
+            else
+                reject({ "error": "Error Provisioning tables " });
         });
 
     })
@@ -39,7 +42,17 @@ async function setupMsgInfra() {
         createTopic(config.gcp_infra.topicName).then(() => {
             createSubscription(config.gcp_infra.topicName, config.gcp_infra.subscriptionName).then(() => {
                 resolve(config.gcp_infra.topicName);
+            }).catch(function (error)   {
+                if( error && error.message.includes('ALREADY_EXISTS'))
+                resolve(config.gcp_infra.topicName);
+            else
+                reject({ "error": "Error Provisioning Subscription " });
             });
+        }).catch(function(error)    {
+            if( error && error.message.includes('ALREADY_EXISTS'))
+                resolve(config.gcp_infra.topicName);
+            else
+                reject({ "error": "Error Provisioning Topic " });
         });
     })
 }
@@ -74,6 +87,15 @@ async function createTables(datasetId) {
     const engagement_schema = fs.readFileSync('./schema/engagement.json');
     const [engagement_table] = await bigquery.dataset(datasetId).createTable(config.gcp_infra.bq.table.engagement, { schema: JSON.parse(engagement_schema), location: 'US' });
     console.log(`Table ${engagement_table.id} created.`);
+
+    const search_schema = fs.readFileSync('./schema/search.json');
+    const [search_table] = await bigquery.dataset(datasetId).createTable(config.gcp_infra.bq.table.search, { schema: JSON.parse(search_schema), location: 'US' });
+    console.log(`Table ${search_table.id} created.`);
+
+    const search_counts_schema = fs.readFileSync('./schema/fas_search_counts.txt','utf8');
+    const [search_counts_table] = await bigquery.dataset(datasetId).createTable(config.gcp_infra.bq.table.search_counts, { schema: search_counts_schema.toString(), location: 'US' });
+    console.log(`Table ${search_counts_table.id} created.`);
+
 }
 
 async function createTopic(topicName) {

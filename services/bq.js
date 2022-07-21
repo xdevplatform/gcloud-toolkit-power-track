@@ -26,13 +26,14 @@ async function insertRowsAsStream(rows, tableName) {
   }
 }
 
-async function insertResults(results, category) {
+async function insertResults(results, category, isSearch) {
   var resultRows = [];
   results.forEach(function (tweet, index) {
     //console.log(' -- TWEET -- ',tweet);
 
     if (tweet) {
-      tweet = JSON.parse(tweet);
+      if( isSearch === false)
+        tweet = JSON.parse(tweet);
       if (tweet.geo != undefined) {
         var geoVar = tweet.geo;
         if (tweet.geo.coordinates != undefined) {
@@ -135,8 +136,13 @@ async function insertResults(results, category) {
       }
     }
   });
+  let tableName;
+  if(isSearch === false)
+    tableName = config.gcp_infra.bq.table.tweets
+  else
+  tableName = config.gcp_infra.bq.table.search
   if (resultRows.length > 0)
-    insertRowsAsStream(resultRows, config.gcp_infra.bq.table.tweets);
+    insertRowsAsStream(resultRows, tableName);
 }
 
 function getMediaArray(media) {
@@ -177,4 +183,17 @@ async function insertEngagements(results) {
     insertRowsAsStream(results, config.gcp_infra.bq.table.engagement);
 }
 
-module.exports = { insertResults, queryRecentTweetsforEngagement, insertEngagements };
+async function insertFollowers(users, parentHandle) {
+  var resultRows = [];
+  users.forEach(function (user, index) {
+    if( user )  {
+      user.parent_handle = parentHandle;
+      user.followers_added_time	= BigQuery.datetime(new Date().toISOString());
+      user.user_url = 'http://twitter.com/' + user.screen_name
+      resultRows.push(user);
+    }
+  });
+  insertRowsAsStream(resultRows, config.gcp_infra.bq.table.followers);
+}
+
+module.exports = { insertResults, queryRecentTweetsforEngagement, insertEngagements, insertFollowers };

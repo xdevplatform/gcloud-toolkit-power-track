@@ -1,0 +1,1 @@
+timeperiod:DATETIME,results:INTEGER,bucket:STRING,category:STRING,subcategory:STRING

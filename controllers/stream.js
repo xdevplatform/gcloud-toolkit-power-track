@@ -27,20 +27,20 @@ router.get("/", function (req, res) {
     if (status != null && status.includes('Successfully provisioned')) {
       gcp_infra_svcs.provisionTables().then(function (status) {
         if (status != null && status.includes('Successfully provisioned')) {
-          gcp_infra_svcs.setupMsgInfra().then(function (statusMsg)    {
-              if (statusMsg != null && statusMsg.includes(config.gcp_infra.topicName)) {
-                streamTweetsHttp();
-              }        
+          gcp_infra_svcs.setupMsgInfra().then(function (statusMsg) {
+            if (statusMsg != null && statusMsg.includes(config.gcp_infra.topicName)) {
+              streamTweetsHttp();
+            }
           })
         }
       })
-        res.send("Now streaming tweets with new GCP infra ..");
+      res.send("Now streaming tweets with new GCP infra ..");
     }
 
-}).catch(error => {
+  }).catch(error => {
     streamTweetsHttp();
     res.send("Now streaming tweets with existing GCP infra ..");
-})
+  })
 });
 
 router.get("/clean", function (req, res) {
@@ -94,7 +94,7 @@ async function updateEngagementMetrics(tweets) {
             }
           }
         })
-        var tweet_engage_list= [];
+        var tweet_engage_list = [];
         for (let k = 0; k < batch_tweet_ids.length; k++) {
           //console.log('Engage ', k, ' Tweet ',batch_tweet_ids[k], ' engage ', engageObj.data.group[batch_tweet_ids[k]]);
           engageObj.data.group[batch_tweet_ids[k]].id = batch_tweet_ids[k];
@@ -178,6 +178,38 @@ async function streamTweetsHttp() {
       streamTweetsHttp();
     });
   });
+}
+
+router.post("/followers", function (req, res) {
+  console.log('Followers Graph ', req.body);
+  saveFollowers(req.body, req.body.nextToken);
+  res.send('Followers Graph Posted')
+});
+
+async function saveFollowers(reqBody, nextToken, delay) {
+  if( delay === undefined )
+    delay = 1000;
+  await utils.sleep(delay); // rate limting delay
+  let axiosConfig = {
+    headers: { Authorization: config.followers_api.bearer_token, 'Content-Type': 'application/json', 'Accept-Encoding': 'gzip' }
+  };
+  let end_point = config.followers_api.end_point + '&screen_name=' + reqBody.screen_name;
+  if (nextToken) {
+    end_point = end_point + '&cursor=' + nextToken;
+  }
+  axios.get(
+    end_point,
+    axiosConfig
+  )
+    .then(function (followersObj) {
+//      console.log('Followers next token ',followersObj.data.next_cursor_str);
+      bq_svcs.insertFollowers(followersObj.data.users, reqBody.screen_name);
+      if (followersObj.data.next_cursor != 0) {
+        delay = delay + 1;
+        saveFollowers(reqBody, followersObj.data.next_cursor_str, delay);
+      }
+    })
+    .catch(console.log);
 }
 
 module.exports = router

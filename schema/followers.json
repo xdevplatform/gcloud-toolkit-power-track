@@ -1,0 +1,399 @@
+[
+    {
+        "name": "id",
+        "type": "INTEGER",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "id_str",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "user_url",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "name",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "screen_name",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "location",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "url",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "description",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "protected",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "verified",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "followers_count",
+        "type": "INTEGER",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "friends_count",
+        "type": "INTEGER",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "listed_count",
+        "type": "INTEGER",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "favourites_count",
+        "type": "INTEGER",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "statuses_count",
+        "type": "INTEGER",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "created_at",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "profile_banner_url",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "profile_image_url_https",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "profile_image_url",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "default_profile",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "default_profile_image",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "utc_offset",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "geo_enabled",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "is_translator",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "lang",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "following",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "live_following",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "follow_request_sent",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "has_extended_profile",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "notifications",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "profile_text_color",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "profile_background_image_url",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "profile_background_image_url_https",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "profile_use_background_image",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "profile_background_color",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "profile_location",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "profile_link_color",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "profile_background_tile",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "profile_sidebar_fill_color",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "profile_sidebar_border_color",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "withheld_in_countries",
+        "type": "RECORD",
+        "mode": "REPEATED",
+        "fields": [
+            {
+                "name": "name",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            }
+        ]
+    },
+    {
+        "name": "contributors_enabled",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "blocked_by",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "blocking",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "muting",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "updated",
+        "type": "STRING",
+        "mode": "REPEATED"
+    },
+    {
+        "name": "derived",
+        "type": "RECORD",
+        "fields": [
+            {
+                "name": "locations",
+                "type": "RECORD",
+                "mode": "REPEATED",
+                "fields": [
+                    {
+                        "name": "country",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "country_code",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "locality",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "region",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "sub_region",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "full_name",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "geo",
+                        "type": "RECORD",
+                        "fields": [
+                            {
+                                "name": "type",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "coordinates",
+                                "type": "FLOAT",
+                                "mode": "REPEATED"
+                            }
+                        ],
+                        "mode": "NULLABLE"
+                    }
+                ]
+            }
+        ],
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "entities",
+        "type": "RECORD",
+        "fields": [
+            {
+                "name": "description",
+                "type": "RECORD",
+                "mode": "NULLABLE",
+                "fields": [
+                    {
+                        "name": "urls",
+                        "type": "RECORD",
+                        "mode": "REPEATED",
+                        "fields": [
+                            {
+                                "name": "url",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "expanded_url",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "display_url",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "indices",
+                                "type": "INTEGER",
+                                "mode": "REPEATED"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "url",
+                "type": "RECORD",
+                "mode": "NULLABLE",
+                "fields": [
+                    {
+                        "name": "urls",
+                        "type": "RECORD",
+                        "mode": "REPEATED",
+                        "fields": [
+                            {
+                                "name": "url",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "expanded_url",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "display_url",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "indices",
+                                "type": "INTEGER",
+                                "mode": "REPEATED"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "time_zone",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "translator_type",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "parent_handle",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "followers_added_time",
+        "type": "DATETIME",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "is_translation_enabled",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    }
+]
